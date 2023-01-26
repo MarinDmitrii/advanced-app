@@ -12,7 +12,7 @@ import (
 
 func init() {
 	log.SetFormatter(&log.TextFormatter{})
-	file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(os.Getenv("logfile"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("Failed to create logfile")
 		log.Fatal(err)
@@ -30,7 +30,7 @@ func main() {
 }
 
 func makeHTTPserver() {
-	err := http.ListenAndServe("localhost:8080", nil)
+	err := http.ListenAndServe(os.Getenv("localURL"), nil)
 	if err != nil {
 		log.Fatal(err)
 		panic(err)
