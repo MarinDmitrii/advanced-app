@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Swagger - OpenAPI 3.0
+  description: |-
+    This is a sample Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io).
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: localhost:8080
+tags:
+  - name: health
+    description: Health check
+  - name: user
+    description: Operations about user
+paths:
+  /healthz:
+    get:
+      tags:
+        - health
+      summary: Health endpoint
+      operationId: Healthz
+      responses:
+        '200':
+          description: successful operation
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request json
+        '415':
+          description: Content Type is not application/json
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        Name:
+          type: string
+          example: John
+        Email:
+          type: string
+          example: john@email.com
